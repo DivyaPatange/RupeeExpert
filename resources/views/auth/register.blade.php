@@ -24,7 +24,21 @@
 	<link rel="stylesheet" href="{{ asset('assets/css/azzara.min.css') }}">
 </head>
 <body class="login" style="background-color:#7da940">
-	<div class="wrapper wrapper-login">
+	<div class="wrapper wrapper-login d-block">
+	<div style="width: 400px;position:relative; margin:auto" class="mt-3">
+			@if ($message = Session::get('success'))
+		<div class="alert alert-success alert-block">
+			<button type="button" class="close" data-dismiss="alert">×</button>	
+				<strong><i class="fa fa-check text-white">&nbsp;</i>{{ $message }}</strong>
+		</div>
+		@endif
+		@if ($message = Session::get('danger'))
+		<div class="alert alert-danger alert-block">
+			<button type="button" class="close" data-dismiss="alert">×</button>	
+				<strong>{{ $message }}</strong>
+		</div>
+		@endif
+		</div>
         <div class="container container-login animated fadeIn">
 			<h3 class="text-center">Sign Up</h3>
 			<div class="login-form">
@@ -67,25 +81,24 @@
                     @enderror
 				</div>
                 <div class="form-group form-floating-label">
-					<input  id="clientID" name="clientID" type="text" class="form-control @error('clientID') is-invalid @enderror input-border-bottom" vvalue="{{ old('clientID') }}">
-					<label for="clientID" class="placeholder">Client ID</label>
-                    @error('clientID')
+					<input  id="client_id" name="client_id" type="text" class="form-control @error('client_id') is-invalid @enderror input-border-bottom" value="{{ old('client_id') }}">
+					<label for="client_id" class="placeholder">Client ID</label>
+                    @error('client_id')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
 				</div>
                 <div class="form-group form-floating-label">
-					<input  id="referenceID" name="referenceID" type="text" class="form-control @error('referenceID') is-invalid @enderror input-border-bottom" value="{{ old('referenceID') }}">
+					<input  id="referenceID" name="reference_id" type="text" class="form-control @error('reference_id') is-invalid @enderror input-border-bottom" value="{{ old('reference_id') }}">
 					<label for="referenceID" class="placeholder">Reference ID</label>
-                    @error('referenceID')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                    
                 </div>
                 <div class="form-group form-floating-label">
-                    <h5 id="reference_name"></h5>
+                    <h5 id="reference_name" class="text-success"></h5>
+					@if ($message = Session::get('error'))
+                  <span class="text-danger error">{{$message}}</span>
+                  @endif
                 </div>
 				<div class="form-group form-floating-label">
 					<input  id="passwordsignin" name="password" type="password" class="form-control @error('password') is-invalid @enderror input-border-bottom">
@@ -129,5 +142,29 @@
 	<script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
 	<script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
 	<script src="{{ asset('assets/js/ready.js') }}"></script>
+	<script>
+	$(document).ready(function () {
+		// keyup function looks at the keys typed on the search box
+		$('#referenceID').on('keyup',function() {
+			// the text typed in the input field is assigned to a variable 
+			var query = $(this).val();
+			// call to an ajax function
+			$.ajax({
+				// assign a controller function to perform search action - route name is search
+				url:"{{ route('user.search') }}",
+				// since we are getting data methos is assigned as GET
+				type:"GET",
+				// data are sent the server
+				data:{'referenceID':query},
+				// if search is succcessfully done, this callback function is called
+				success:function (data) {
+					// print the search results in the div called country_list(id)
+					$('#reference_name').html(data);
+				}
+			})
+			// end of ajax call
+		});
+	})
+	</script>
 </body>
 </html>

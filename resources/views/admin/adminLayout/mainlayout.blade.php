@@ -18,8 +18,8 @@
 			<!-- Logo Header -->
 			<div class="logo-header">
 				
-				<a href="index.html" class="logo">
-					<img src="{{ asset('assets/img/logoazzara.svg') }}" alt="navbar brand" class="navbar-brand">
+				<a href="{{ url('/admin') }}" class="logo">
+					<img src="{{ asset('favicon.png') }}" alt="navbar brand" class="navbar-brand">
 				</a>
 				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon">

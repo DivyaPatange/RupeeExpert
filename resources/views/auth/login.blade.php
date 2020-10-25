@@ -23,8 +23,24 @@
 	<link rel="stylesheet" href="{{ asset('assets/css/azzara.min.css') }}">
 </head>
 <body class="login" style="background-color:#7da940">
-	<div class="wrapper wrapper-login">
+
+	<div class="wrapper wrapper-login d-block">
+	<div style="width: 400px;position:relative; margin:auto" class="mt-3">
+			@if ($message = Session::get('success'))
+		<div class="alert alert-success alert-block">
+			<button type="button" class="close" data-dismiss="alert">×</button>	
+				<strong><i class="fa fa-check text-white">&nbsp;</i>{{ $message }}</strong>
+		</div>
+		@endif
+		@if ($message = Session::get('danger'))
+		<div class="alert alert-danger alert-block">
+			<button type="button" class="close" data-dismiss="alert">×</button>	
+				<strong>{{ $message }}</strong>
+		</div>
+		@endif
+		</div>
 		<div class="container container-login animated fadeIn">
+		
 			<h3 class="text-center">Sign In</h3>
 			<div class="login-form">
             <form method="POST" action="{{ route('login') }}">

@@ -22,8 +22,8 @@ class User extends Authenticatable
         'password',
         'password_1',
         'contact_no',
-        'clientID',
-        'referenceID',
+        'client_id',
+        'reference_id',
         'address',
     ];
 
@@ -45,4 +45,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function childs() {
+        return $this->hasMany('App\Models\User','reference_id') ;
+    }
+
 }

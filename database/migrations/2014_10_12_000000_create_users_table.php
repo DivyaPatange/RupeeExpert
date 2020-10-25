@@ -22,8 +22,8 @@ class CreateUsersTable extends Migration
             $table->text('address');
             $table->string('password');
             $table->string('password_1');
-            $table->string('clientID');
-            $table->string('referenceID');
+            $table->string('client_id')->unique();
+            $table->string('reference_id');
             $table->rememberToken();
             $table->timestamps();
         });
