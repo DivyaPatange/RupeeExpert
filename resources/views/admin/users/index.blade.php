@@ -4,9 +4,35 @@
 @section('page_title', 'Users')
 <div class="row">
     <div class="col-md-12">
-        <div class="card">
+    <a href="{{ route('admin.users.create') }}" class="btn btn-secondary">
+        <span class="btn-label">
+            <i class="fa fa-plus"></i>
+        </span>
+        User
+    </a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        @if ($message = Session::get('success'))
+		<div class="alert alert-success alert-block mt-3">
+			<button type="button" class="close" data-dismiss="alert">×</button>	
+				<strong><i class="fa fa-check text-white">&nbsp;</i>{{ $message }}</strong>
+		</div>
+		@endif
+		@if ($message = Session::get('danger'))
+		<div class="alert alert-danger alert-block mt-3">
+			<button type="button" class="close" data-dismiss="alert">×</button>	
+				<strong>{{ $message }}</strong>
+		</div>
+		@endif
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card mt-4">
             <div class="card-header">
-                <h4 class="card-title">Multi Filter Select</h4>
+                <h4 class="card-title">Users List</h4>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -39,8 +65,8 @@
                                 <td>{{ $u->client_id }}</td>
                                 <td>{{ $u->password_1 }}</td>
                                 <td>{{ $u->contact_no }}</td>
-                                <td><button class="btn btn-primary">Edit</button>
-                                <button class="btn btn-danger">Delete</button>
+                                <td>
+                                <a href="{{ route('admin.users.edit', $u->id) }}"><button class="btn btn-danger">Edit</button></a>
                                 </td>
                             </tr>
                          @endforeach

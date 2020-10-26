@@ -91,7 +91,7 @@
 				</div>
                 <div class="form-group form-floating-label">
 					<input  id="referenceID" name="reference_id" type="text" class="form-control @error('reference_id') is-invalid @enderror input-border-bottom" value="{{ old('reference_id') }}">
-					<label for="referenceID" class="placeholder">Reference ID</label>
+					<label for="referenceID" class="placeholder">Reference ID (Optional)</label>
                     
                 </div>
                 <div class="form-group form-floating-label">

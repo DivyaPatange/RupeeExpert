@@ -46,9 +46,9 @@
             <form method="POST" action="{{ route('login') }}">
             @csrf
 				<div class="form-group form-floating-label">
-					<input id="email" name="email" type="email" class="form-control @error('email') is-invalid @enderror input-border-bottom" value="{{ old('email') }}" >
-					<label for="email" class="placeholder">Email</label>
-                    @error('email')
+					<input id="client_id" name="client_id" type="text" class="form-control @error('client_id') is-invalid @enderror input-border-bottom" value="{{ old('client_id') }}" >
+					<label for="client_id" class="placeholder">Client ID</label>
+                    @error('client_id')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>

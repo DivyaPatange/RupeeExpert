@@ -3,7 +3,7 @@
 <script>
 WebFont.load({
     google: {"families":["Open+Sans:300,400,600,700"]},
-    custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands"], urls: ['../assets/css/fonts.css']},
+    custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands"], urls: ['{{ asset('assets/css/fonts.css') }}']},
     active: function() {
         sessionStorage.fonts = true;
     }
@@ -15,4 +15,4 @@ WebFont.load({
 <link rel="stylesheet" href="{{ asset('assets/css/azzara.min.css') }}">
 
 <!-- CSS Just for demo purpose, don't include it in your project -->
-<link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}">
+<!-- <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}"> -->

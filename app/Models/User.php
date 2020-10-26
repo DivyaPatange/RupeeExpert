@@ -47,7 +47,7 @@ class User extends Authenticatable
     ];
 
     public function childs() {
-        return $this->hasMany('App\Models\User','reference_id') ;
+        return $this->hasMany('App\Models\User','reference_id', 'client_id') ;
     }
 
 }

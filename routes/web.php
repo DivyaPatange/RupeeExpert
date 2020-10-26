@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('admin.login');
 });
 
-Auth::routes();
+// Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -29,10 +29,16 @@ Route::prefix('admin')->name('admin.')->group(function(){
     Route::post('/register', [App\Http\Controllers\Auth\AdminRegisterController::class, 'register'])->name('register.submit');
     Route::get('/logout', [App\Http\Controllers\Auth\AdminLoginController::class, 'logout'])->name('logout');
     Route::get('/users', [App\Http\Controllers\Admin\UsersController::class, 'index'])->name('users.index');
+    Route::get('/userSearch', [App\Http\Controllers\Admin\UsersController::class, 'search'])->name('users.search');
+    Route::get('/userCreate', [App\Http\Controllers\Admin\UsersController::class, 'create'])->name('users.create');
+    Route::post('/userStore', [App\Http\Controllers\Admin\UsersController::class, 'store'])->name('users.store');
+    Route::get('/userEdit/{id}', [App\Http\Controllers\Admin\UsersController::class, 'edit'])->name('users.edit');
+    Route::put('/userUpdate/{id}', [App\Http\Controllers\Admin\UsersController::class, 'update'])->name('users.update');
+    Route::get('/userProfile/{id}', [App\Http\Controllers\Admin\UsersController::class, 'show'])->name('users.show');
     Route::get('/companytree', [App\Http\Controllers\Admin\UsersController::class, 'Treeview'])->name('companytree');
 });
-
+Route::get('/search', [App\Http\Controllers\Auth\RegisterController::class, 'search'])->name('user.search');
 Route::prefix('users')->group(function() {
-    Route::get('/search', [App\Http\Controllers\Admin\UsersController::class, 'search'])->name('user.search');
+    
 });
 

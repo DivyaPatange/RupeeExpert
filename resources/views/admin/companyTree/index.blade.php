@@ -5,6 +5,22 @@
 <link href="{{ asset('assets/assets/vendor/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
 <link href="{{ asset('assets/assets/scss/argon.scss') }}" rel="stylesheet">
 <link href="{{ asset('treeflex.css') }}" rel="stylesheet">
+<style>
+.tf-nc
+{
+    border:none !important;
+}
+.tf-nc a
+{
+    color:white;
+}
+.tf-tree .tf-nc:after, .tf-tree .tf-nc:before, .tf-tree .tf-node-content:after, .tf-tree .tf-node-content:before{
+    border-left:.0625em solid #000;
+}
+.tf-tree li li:before{
+    border-top:.0625em solid #000;
+}
+</style>
 @endsection
 @section('content')
 @section('page_title', 'Company Tree')
@@ -51,5 +67,5 @@
 </div>
 @endsection
 @section('customjs')
-<script src="{{ asset('treeview.js') }}"></script>
+<!-- <script src="{{ asset('treeview.js') }}"></script> -->
 @endsection

@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Auth;
+use Illuminate\Http\Request;
+use App\Models\User;
 
 class LoginController extends Controller
 {
@@ -36,5 +39,23 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function login(Request $request)
+    {   
+        $input = $request->all();
+  
+        $this->validate($request, [
+            'client_id' => 'required',
+            'password' => 'required',
+        ]);
+            
+        if(auth()->attempt(array('client_id' => $input['client_id'], 'password' => $input['password'])))
+        {
+            return redirect()->route('home');
+        }else{
+            return redirect()->route('login')
+                ->with('danger','ClientID And Password Are Wrong.');
+        }
     }
 }
