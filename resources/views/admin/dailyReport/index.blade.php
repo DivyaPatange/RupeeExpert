@@ -1,19 +1,9 @@
 @extends('admin.adminLayout.mainlayout')
-@section('title', 'Users')
+@section('title', 'Daily Report')
 @section('content')
-@section('page_title', 'Users')
-<div class="row">
-    <div class="col-md-12">
-    <a href="{{ route('admin.users.create') }}" class="btn btn-secondary">
-        <span class="btn-label">
-            <i class="fa fa-plus"></i>
-        </span>
-        User
-    </a>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
+@section('page_title', 'Daily Report')
+<div class="row justify-content-center">
+    <div class="col-md-6">
         @if ($message = Session::get('success'))
 		<div class="alert alert-success alert-block mt-3">
 			<button type="button" class="close" data-dismiss="alert">×</button>	
@@ -28,6 +18,33 @@
 		@endif
     </div>
 </div>
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Upload File</div>
+            </div>
+            <form method="POST" action="{{ route('admin.uploadFile') }}" enctype="multipart/form-data">
+            @csrf
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="email2">File</label>
+                    <input type="file" class="form-control @error('file') is-invalid @enderror" id="email2" name="file">
+                    @error('file')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+            <div class="card-action">
+                <button type="submit" class="btn btn-success">Submit</button>
+            </div>
+            </form>
+        </div>
+    </div>
+    </div>
+
 <div class="row">
     <div class="col-md-12">
         <div class="card mt-4">
@@ -40,36 +57,31 @@
                         <thead>
                             <tr>
                                 <th>Sr. No.</th>
-                                <th>Name</th>
                                 <th>Client ID</th>
-                                <th>Password</th>
-                                <th>Mobile No.</th>
-                                <th>Action</th>
+                                <th>Name</th>
+                                <th>Gross</th>
+                                <th>Remiser</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
                                 <th>Sr. No.</th>
-                                <th>Name</th>
                                 <th>Client ID</th>
-                                <th>Password</th>
-                                <th>Mobile No.</th>
-                                <th>Action</th>
+                                <th>Name</th>
+                                <th>Gross</th>
+                                <th>Remiser</th>
                             </tr>
                         </tfoot>
                         <tbody>
-                        @foreach($users as $key => $u)
+                        @foreach($dailyReports as $key => $d)
                             <tr>
                                 <td>{{ ++$key }}</td>
-                                <td>{{ $u->name }}</td>
-                                <td>{{ $u->client_id }}</td>
-                                <td>{{ $u->password_1 }}</td>
-                                <td>{{ $u->contact_no }}</td>
-                                <td>
-                                <a href="{{ route('admin.users.edit', $u->id) }}"><button class="btn btn-danger">Edit</button></a>
-                                </td>
+                                <td>{{ $d->client_id }}</td>
+                                <td>{{ $d->name }}</td>
+                                <td>{{ $d->gross }}</td>
+                                <td>{{ $d->remiser }}</td>
                             </tr>
-                         @endforeach
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

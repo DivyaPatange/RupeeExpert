@@ -36,6 +36,9 @@ Route::prefix('admin')->name('admin.')->group(function(){
     Route::put('/userUpdate/{id}', [App\Http\Controllers\Admin\UsersController::class, 'update'])->name('users.update');
     Route::get('/userProfile/{id}', [App\Http\Controllers\Admin\UsersController::class, 'show'])->name('users.show');
     Route::get('/companytree', [App\Http\Controllers\Admin\UsersController::class, 'Treeview'])->name('companytree');
+    Route::get('/dailyReport', [App\Http\Controllers\Admin\UsersController::class, 'dailyReport'])->name('dailyReport');
+    Route::post('/uploadFile', [App\Http\Controllers\Admin\UsersController::class, 'uploadFile'])->name('uploadFile');
+
 });
 Route::get('/search', [App\Http\Controllers\Auth\RegisterController::class, 'search'])->name('user.search');
 Route::prefix('users')->group(function() {
