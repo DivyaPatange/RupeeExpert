@@ -38,7 +38,8 @@ Route::prefix('admin')->name('admin.')->group(function(){
     Route::get('/companytree', [App\Http\Controllers\Admin\UsersController::class, 'Treeview'])->name('companytree');
     Route::get('/dailyReport', [App\Http\Controllers\Admin\UsersController::class, 'dailyReport'])->name('dailyReport');
     Route::post('/uploadFile', [App\Http\Controllers\Admin\UsersController::class, 'uploadFile'])->name('uploadFile');
-
+    Route::get('/wallet', [App\Http\Controllers\Admin\UsersController::class, 'adminWallet'])->name('wallet');
+    Route::get('/userWallet', [App\Http\Controllers\Admin\UsersController::class, 'userWallet'])->name('user.wallet');
 });
 Route::get('/search', [App\Http\Controllers\Auth\RegisterController::class, 'search'])->name('user.search');
 Route::prefix('users')->group(function() {

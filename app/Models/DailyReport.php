@@ -12,7 +12,7 @@ class DailyReport extends Model
 
     protected $table = "daily_reports";
 
-    protected $fillable = ['client_id', 'name', 'gross', 'remiser'];
+    protected $fillable = ['client_id', 'name', 'gross', 'remiser', 'created_at'];
 
     public static function insertData($data){
 

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\DailyReport;
+use App\Models\AdminWallet;
+use App\Models\UserWallet;
 use Illuminate\Support\Facades\Hash;
 use Redirect;
 use Session;
@@ -109,49 +111,23 @@ class UsersController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'client_id' => 'unique:users,client_id,'.$id,
-        ]);
         $user = User::findorfail($id);
-        // $user->name = $request->name;
-        // $user->email = $request->email;
-        // $user->contact_no = $request->contact_no;
-        // $user->client_id = $request->client_id;
-        // $user->address = $request->address;
-        if($request->reference_id){
-            $referenceID = User::where('client_id', $request->reference_id)->first();
-            if($referenceID != null){
-                $user = User::where('id', $id)->update([
-                    'name' => $request->name,
-                    'email' => $request->email,
-                    'contact_no' => $request->contact_no,
-                    'client_id' => $request->client_id,
-                    'address' => $request->address,
-                    'reference_id' => $request->reference_id,
-                ]);
-            }
-            else{
-                return Redirect::back()->with("danger", "This Reference ID doesn't exist" );
-            }
-        }
-        else{
-            $user = User::where('id', $id)->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'contact_no' => $request->contact_no,
-                'client_id' => $request->client_id,
-                'address' => $request->address,
-                'reference_id' => 0,
-            ]);
-        }
-        // $user->update($request->all());
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->contact_no = $request->contact_no;
+        $user->address = $request->address;
+       
+        $user->update($request->all());
         return redirect('/admin/users')->with('success', 'User Updated  Successfully!');
     }
 
     public function show($id)
     {
         $user = User::findorfail($id);
-        return view('admin.users.show', compact('user'));
+        $userWallet = UserWallet::where('parent_id', $user->client_id)->get();
+        $total = UserWallet::where('parent_id', $user->client_id)->get()->sum('amount');
+        // dd($userWallet);
+        return view('admin.users.show', compact('user', 'userWallet', 'total'));
     }
 
     public function Treeview()
@@ -234,11 +210,52 @@ class UsersController extends Controller
                     "client_id"=>$importData[0],
                     "name"=>$importData[1],
                     "gross"=>$importData[2],
-                    "remiser"=>$importData[3]);
+                    "remiser"=>$importData[3],
+                    "created_at" => date('Y-m-d'));
                     DailyReport::insertData($insertData);
-        
                 }
-        
+                $dailyReport = DailyReport::all();
+                foreach($dailyReport as $d)
+                {
+                    $adminWallet = AdminWallet::where('dailyreport_id', $d->id)->first();
+                    if(empty($adminWallet))
+                    {
+                        $adminWallet = new AdminWallet();
+                        $adminWallet->dailyreport_id = $d->id;
+                        $adminWallet->client_id = $d->client_id;
+                        $user = User::where('client_id', $d->client_id)->first();
+                        $parent = User::where('client_id', $user->reference_id)->first();
+                        if($parent == null)
+                        {
+                            $adminWallet->amount = $d->remiser;
+                        }
+                        else{
+                            $adminWallet->amount = (0.5 * $d->remiser);
+                        }
+                        $adminWallet->income_date = $d->created_at;
+                        $adminWallet->save();
+                    }
+                    $userWallet = UserWallet::where('dailyreport_id', $d->id)->first();
+                    if(empty($userWallet))
+                    {
+                        $user = User::where('client_id', $d->client_id)->first();
+                        $parent = User::where('client_id', $user->reference_id)->first();
+                        if($parent != null)
+                        {
+                            $userWallet = new UserWallet();
+                            $userWallet->dailyreport_id = $d->id;
+                            $userWallet->client_id = $d->client_id;
+                            $userWallet->parent_id = $parent->client_id;
+                            $userWallet->amount = (0.5 * $d->remiser);
+                            $userWallet->income_date = $d->created_at;
+                            $userWallet->save();
+                        }
+                        
+                        
+                    }
+                }
+                // $dailyReports = DailyReport::where('created_at', $importData['created_at'])->get();
+                // dd($dailyReports);
                 Session::flash('success','Import Successful.');
                 }else{
                 Session::flash('danger','File too large. File must be less than 2MB.');
@@ -251,5 +268,17 @@ class UsersController extends Controller
          
         // Redirect to index
         return redirect('/admin/dailyReport');
+    }
+
+    public function adminWallet()
+    {
+        $adminWallet = AdminWallet::all();
+        return view('admin.wallet.admin', compact('adminWallet'));
+    }
+
+    public function userWallet()
+    {
+        $userWallet = UserWallet::all();
+        return view('admin.wallet.user', compact('userWallet'));
     }
 }

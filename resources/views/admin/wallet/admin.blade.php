@@ -1,17 +1,7 @@
 @extends('admin.adminLayout.mainlayout')
-@section('title', 'Users')
+@section('title', 'Admin Wallet')
 @section('content')
-@section('page_title', 'Users')
-<div class="row">
-    <div class="col-md-12">
-    <a href="{{ route('admin.users.create') }}" class="btn btn-secondary">
-        <span class="btn-label">
-            <i class="fa fa-plus"></i>
-        </span>
-        User
-    </a>
-    </div>
-</div>
+@section('page_title', 'Admin Wallet')
 <div class="row">
     <div class="col-md-12">
         @if ($message = Session::get('success'))
@@ -32,7 +22,7 @@
     <div class="col-md-12">
         <div class="card mt-4">
             <div class="card-header">
-                <h4 class="card-title">Users List</h4>
+                <h4 class="card-title">Admin Wallet List</h4>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -40,35 +30,33 @@
                         <thead>
                             <tr>
                                 <th>Sr. No.</th>
-                                <th>Name</th>
                                 <th>Client ID</th>
-                                <th>Password</th>
-                                <th>Mobile No.</th>
-                                <th>Action</th>
+                                <th>Name</th>
+                                <th>Amount</th>
+                                <th>Date</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
                                 <th>Sr. No.</th>
-                                <th>Name</th>
                                 <th>Client ID</th>
-                                <th>Password</th>
-                                <th>Mobile No.</th>
-                                <th>Action</th>
+                                <th>Name</th>
+                                <th>Amount</th>
+                                <th>Date</th>
                             </tr>
                         </tfoot>
                         <tbody>
-                        @foreach($users as $key => $u)
+                        @foreach($adminWallet as $key => $u)
+                        <?php
+                            $user = DB::table('users')->where('client_id', $u->client_id)->first();
+                        ?>
                             <tr>
                                 <td>{{ ++$key }}</td>
-                                <td>{{ $u->name }}</td>
                                 <td>{{ $u->client_id }}</td>
-                                <td>{{ $u->password_1 }}</td>
-                                <td>{{ $u->contact_no }}</td>
-                                <td>
-                                <a href="{{ route('admin.users.show', $u->id) }}"><button class="btn btn-info">Profile</button></a>
-                                <a href="{{ route('admin.users.edit', $u->id) }}"><button class="btn btn-danger">Edit</button></a>
-                                </td>
+                                <td>@if(isset($user) && !empty($user))
+                                {{ $user->name }} @endif</td>
+                                <td>{{ $u->amount }}</td>
+                                <td>{{ $u->income_date }}</td>
                             </tr>
                          @endforeach
                         </tbody>
@@ -82,7 +70,31 @@
 @section('customjs')
 <script >
 $(document).ready(function() {
-    $('#multi-filter-select').DataTable({
+    $('#basic-datatables').DataTable({
+    });
+
+    $('#multi-filter-select').DataTable( {
+        "pageLength": 10,
+        initComplete: function () {
+            this.api().columns().every( function () {
+                var column = this;
+                var select = $('<select class="form-control"><option value=""></option></select>')
+                .appendTo( $(column.footer()).empty() )
+                .on( 'change', function () {
+                    var val = $.fn.dataTable.util.escapeRegex(
+                        $(this).val()
+                        );
+
+                    column
+                    .search( val ? '^'+val+'$' : '', true, false )
+                    .draw();
+                } );
+
+                column.data().unique().sort().each( function ( d, j ) {
+                    select.append( '<option value="'+d+'">'+d+'</option>' )
+                } );
+            } );
+        }
     });
 });
 </script>

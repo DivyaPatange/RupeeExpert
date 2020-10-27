@@ -45,13 +45,13 @@
                         <p>Daily Report</p>
                     </a>
                 </li>
-                <!-- <li class="nav-item">
-                    <a data-toggle="collapse" href="#maps">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <p>Maps</p>
-                        <span class="caret"></span>
+                <li class="nav-item">
+                    <a href="{{ url('/admin/wallet') }}">
+                        <i class="far fa-chart-bar"></i>
+                        <p>Admin Wallet</p>
+                        <!-- <span class="caret"></span> -->
                     </a>
-                    <div class="collapse" id="maps">
+                    <!-- <div class="collapse" id="maps">
                         <ul class="nav nav-collapse">
                             <li>
                                 <a href="maps/googlemaps.html">
@@ -69,9 +69,9 @@
                                 </a>
                             </li>
                         </ul>
-                    </div>
+                    </div> -->
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a data-toggle="collapse" href="#charts">
                         <i class="far fa-chart-bar"></i>
                         <p>Charts</p>
@@ -91,16 +91,15 @@
                             </li>
                         </ul>
                     </div>
-                </li>
+                </li> -->
                 
                 <li class="nav-item">
-                    <a href="widgets.html">
+                    <a href="{{ url('/admin/userWallet') }}">
                         <i class="fas fa-desktop"></i>
-                        <p>Widgets</p>
-                        <span class="badge badge-count badge-success">4</span>
+                        <p>User Wallet</p>
                     </a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a data-toggle="collapse" href="#custompages">
                         <i class="fas fa-paint-roller"></i>
                         <p>Custom Pages</p>
@@ -130,8 +129,8 @@
                             </li>
                         </ul>
                     </div>
-                </li>
-                <li class="nav-item">
+                </li> -->
+                <!-- <li class="nav-item">
                     <a data-toggle="collapse" href="#submenu">
                         <i class="fas fa-bars"></i>
                         <p>Menu Levels</p>

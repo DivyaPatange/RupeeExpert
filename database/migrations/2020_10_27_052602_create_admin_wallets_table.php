@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDailyReportsTable extends Migration
+class CreateAdminWalletsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateDailyReportsTable extends Migration
      */
     public function up()
     {
-        Schema::create('daily_reports', function (Blueprint $table) {
+        Schema::create('admin_wallets', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('dailyreport_id');
+            $table->foreign('dailyreport_id')->references('id')->on('daily_reports');
             $table->string('client_id');
-            $table->string('name');
-            $table->string('gross');
-            $table->string('remiser');
-            $table->date('created_at');
+            $table->string('amount');
+            $table->date('income_date');
+            $table->timestamps();
         });
     }
 
@@ -30,6 +31,6 @@ class CreateDailyReportsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('daily_reports');
+        Schema::dropIfExists('admin_wallets');
     }
 }
