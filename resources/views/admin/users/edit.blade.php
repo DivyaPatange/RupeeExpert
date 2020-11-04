@@ -48,6 +48,39 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
+                            <label for="pan_card_no">PAN Card No.</label>
+                            <input type="text" class="form-control @error('pan_card_no') is-invalid @enderror" id="pan_card_no" placeholder="Enter PAN Card No." name="pan_card_no" value="{{ $user->pan_card_no }}">
+                            @error('pan_card_no')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="bank_acc_no">Bank Account No.</label>
+                            <input type="text" class="form-control @error('bank_acc_no') is-invalid @enderror" id="bank_acc_no" placeholder="Enter Bank Account No." name="bank_acc_no" value="{{ $user->bank_acc_no }}">
+                            @error('bank_acc_no')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="ifsc_code">IFSC Code</label>
+                            <input type="text" class="form-control @error('ifsc_code') is-invalid @enderror" id="ifsc_code" placeholder="Enter IFSC Code" name="ifsc_code" value="{{ $user->ifsc_code }}">
+                            @error('ifsc_code')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
                             <label for="address">Address</label>
                             <textarea class="form-control @error('address') is-invalid @enderror" id="address" name="address" rows="4">
                             {{ $user->address }}

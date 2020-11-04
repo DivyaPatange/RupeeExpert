@@ -42,7 +42,6 @@
                                 <th>Sr. No.</th>
                                 <th>Name</th>
                                 <th>Client ID</th>
-                                <th>Password</th>
                                 <th>Mobile No.</th>
                                 <th>Action</th>
                             </tr>
@@ -52,7 +51,6 @@
                                 <th>Sr. No.</th>
                                 <th>Name</th>
                                 <th>Client ID</th>
-                                <th>Password</th>
                                 <th>Mobile No.</th>
                                 <th>Action</th>
                             </tr>
@@ -62,8 +60,7 @@
                             <tr>
                                 <td>{{ ++$key }}</td>
                                 <td>{{ $u->name }}</td>
-                                <td>{{ $u->client_id }}</td>
-                                <td>{{ $u->password_1 }}</td>
+                                <td>{{ $u->reference_client_id }}</td>
                                 <td>{{ $u->contact_no }}</td>
                                 <td>
                                 <a href="{{ route('admin.users.show', $u->id) }}"><button class="btn btn-info">Profile</button></a>

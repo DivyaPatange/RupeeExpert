@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title>Rupee Expert | Admin | @yield('title')</title>
+	<title>Black4Iamond | Admin | @yield('title')</title>
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-	<link rel="icon" href="{{ asset('favicon.png') }}" type="image/x-icon"/>
+	<!-- <link rel="icon" href="{{ asset('favicon.png') }}" type="image/x-icon"/> -->
 
     @include('admin.adminLayout.stylesheet')
     @yield('customcss')
@@ -19,7 +19,7 @@
 			<div class="logo-header">
 				
 				<a href="{{ url('/admin') }}" class="logo">
-				<h2 class="mt-3 text-white">Rupee Expert</h2>
+				<h2 class="mt-3 text-white">Black4Iamond</h2>
 				</a>
 				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon">

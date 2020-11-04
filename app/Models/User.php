@@ -20,11 +20,13 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'password_1',
         'contact_no',
         'client_id',
         'reference_id',
         'address',
+        'pan_card_no',
+        'bank_acc_no',
+        'ifsc_code'
     ];
 
     /**
@@ -47,7 +49,7 @@ class User extends Authenticatable
     ];
 
     public function childs() {
-        return $this->hasMany('App\Models\User','reference_id', 'client_id') ;
+        return $this->hasMany('App\Models\User','reference_id', 'reference_client_id') ;
     }
 
 }

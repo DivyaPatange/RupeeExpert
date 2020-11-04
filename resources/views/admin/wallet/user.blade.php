@@ -54,8 +54,8 @@
                         <tbody>
                         @foreach($userWallet as $key => $u)
                         <?php
-                            $user = DB::table('users')->where('client_id', $u->client_id)->first();
-                            $parent = DB::table('users')->where('client_id', $u->parent_id)->first();
+                            $user = DB::table('users')->where('reference_client_id', $u->client_id)->first();
+                            $parent = DB::table('users')->where('reference_client_id', $u->parent_id)->first();
                         ?>
                             <tr>
                                 <td>{{ ++$key }}</td>

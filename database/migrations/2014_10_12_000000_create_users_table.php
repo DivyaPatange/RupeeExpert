@@ -18,11 +18,14 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('password')->nullable();
             $table->string('contact_no');
             $table->text('address');
-            $table->string('password');
-            $table->string('password_1');
+            $table->string('pan_card_no')->nullable();
+            $table->string('bank_acc_no')->nullable();
+            $table->string('ifsc_code')->nullable();
             $table->string('client_id')->unique();
+            $table->string('reference_client_id');
             $table->string('reference_id');
             $table->rememberToken();
             $table->timestamps();

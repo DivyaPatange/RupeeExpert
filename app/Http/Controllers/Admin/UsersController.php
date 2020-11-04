@@ -35,7 +35,7 @@ class UsersController extends Controller
     {
         if($request->ajax()) {
             // select country name from database
-            $data = User::where('client_id', 'LIKE', $request->reference_id.'%')
+            $data = User::where('reference_client_id', 'LIKE', $request->reference_id.'%')
                 ->get();
             // dd($data);  
         
@@ -47,7 +47,7 @@ class UsersController extends Controller
                 // loop through the result array
                 foreach ($data as $row){
                     // dd($request->user_referral_info == $row->referral_code);
-                    if($request->reference_id == $row->client_id){
+                    if($request->reference_id == $row->reference_client_id){
                     // concatenate output to the array
                     // $parentName = User::where('id', $row->parent_id)->first();
 
@@ -77,18 +77,19 @@ class UsersController extends Controller
             'contact_no' => 'required|digits:10',
             'client_id' => 'required|unique:users',
             'address' => 'required',
-            'password' => 'required|confirmed',
         ]);
         $users = new User();
         $users->name = $request->name;
         $users->email = $request->email;
         $users->contact_no = $request->contact_no;
         $users->client_id = $request->client_id;
-        $users->password = Hash::make($request->password);
-        $users->password_1 = $request->password;
+        $users->reference_client_id = "AKHG".$request->client_id;
         $users->address = $request->address;
+        $users->pan_card_no = $request->pan_card_no;
+        $users->bank_acc_no = $request->bank_acc_no;
+        $users->ifsc_code = $request->ifsc_code;
         if($request->reference_id){
-            $referenceID = User::where('client_id', $request->reference_id)->first();
+            $referenceID = User::where('reference_client_id', $request->reference_id)->first();
             if($referenceID != null){
                 $users->reference_id = $request->reference_id;
             }
@@ -116,7 +117,9 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->contact_no = $request->contact_no;
         $user->address = $request->address;
-       
+        $user->pan_card_no = $request->pan_card_no;
+        $user->bank_acc_no = $request->bank_acc_no;
+        $user->ifsc_code = $request->ifsc_code;
         $user->update($request->all());
         return redirect('/admin/users')->with('success', 'User Updated  Successfully!');
     }
@@ -223,8 +226,10 @@ class UsersController extends Controller
                         $adminWallet = new AdminWallet();
                         $adminWallet->dailyreport_id = $d->id;
                         $adminWallet->client_id = $d->client_id;
-                        $user = User::where('client_id', $d->client_id)->first();
-                        $parent = User::where('client_id', $user->reference_id)->first();
+                        $user = User::where('reference_client_id', $d->client_id)->first();
+                        // dd($user);
+                        $parent = User::where('reference_client_id', $user->reference_id)->first();
+                        // dd($parent);
                         if($parent == null)
                         {
                             $adminWallet->amount = $d->remiser;
@@ -238,14 +243,14 @@ class UsersController extends Controller
                     $userWallet = UserWallet::where('dailyreport_id', $d->id)->first();
                     if(empty($userWallet))
                     {
-                        $user = User::where('client_id', $d->client_id)->first();
-                        $parent = User::where('client_id', $user->reference_id)->first();
+                        $user = User::where('reference_client_id', $d->client_id)->first();
+                        $parent = User::where('reference_client_id', $user->reference_id)->first();
                         if($parent != null)
                         {
                             $userWallet = new UserWallet();
                             $userWallet->dailyreport_id = $d->id;
                             $userWallet->client_id = $d->client_id;
-                            $userWallet->parent_id = $parent->client_id;
+                            $userWallet->parent_id = $parent->reference_client_id;
                             $userWallet->amount = (0.5 * $d->remiser);
                             $userWallet->income_date = $d->created_at;
                             $userWallet->save();

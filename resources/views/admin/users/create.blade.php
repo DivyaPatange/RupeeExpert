@@ -55,12 +55,17 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="client_id">Client ID</label>
-                            <input type="text" class="form-control @error('client_id') is-invalid @enderror" id="client_id" placeholder="Enter Client ID" name="client_id" value="{{ old('client_id') }}">
-                            @error('client_id')
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">AKHG</span>
+                                </div>
+                                <input type="number" class="form-control @error('client_id') is-invalid @enderror" placeholder="Enter Client ID" aria-label="Enter Client ID" name="client_id" value="{{ old('client_id') }}" aria-describedby="basic-addon1">
+                                @error('client_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -85,7 +90,40 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="pan_card_no">PAN Card No.</label>
+                            <input type="text" class="form-control @error('pan_card_no') is-invalid @enderror" id="pan_card_no" placeholder="Enter PAN Card No." name="pan_card_no" value="{{ old('pan_card_no') }}">
+                            @error('pan_card_no')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="bank_acc_no">Bank Account No.</label>
+                            <input type="text" class="form-control @error('bank_acc_no') is-invalid @enderror" id="bank_acc_no" placeholder="Enter Bank Account No." name="bank_acc_no" value="{{ old('bank_acc_no') }}">
+                            @error('bank_acc_no')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="ifsc_code">IFSC Code</label>
+                            <input type="text" class="form-control @error('ifsc_code') is-invalid @enderror" id="ifsc_code" placeholder="Enter IFSC Code" name="ifsc_code" value="{{ old('ifsc_code') }}">
+                            @error('ifsc_code')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="address">Address</label>
                             <textarea class="form-control @error('address') is-invalid @enderror" id="address" name="address" rows="4">
@@ -96,23 +134,6 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="Password" name="password">
-                            @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="cpassword">Confirm Password</label>
-                            <input type="password" class="form-control" id="cpassword" placeholder="Confirmed Password" name="password_confirmation">
                         </div>
                     </div>
                 </div>
