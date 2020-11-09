@@ -77,6 +77,9 @@ class UsersController extends Controller
             'contact_no' => 'required|digits:10',
             'client_id' => 'required|unique:users',
             'address' => 'required',
+            'state' => 'required',
+            'city' => 'required',
+            'pin_code' => 'required',
         ]);
         $users = new User();
         $users->name = $request->name;
@@ -88,6 +91,9 @@ class UsersController extends Controller
         $users->pan_card_no = $request->pan_card_no;
         $users->bank_acc_no = $request->bank_acc_no;
         $users->ifsc_code = $request->ifsc_code;
+        $users->state = $request->state;
+        $users->city = $request->city;
+        $users->pin_code = $request->pin_code;
         if($request->reference_id){
             $referenceID = User::where('reference_client_id', $request->reference_id)->first();
             if($referenceID != null){
@@ -120,6 +126,9 @@ class UsersController extends Controller
         $user->pan_card_no = $request->pan_card_no;
         $user->bank_acc_no = $request->bank_acc_no;
         $user->ifsc_code = $request->ifsc_code;
+        $user->state = $request->state;
+        $user->city = $request->city;
+        $user->pin_code = $request->pin_code;
         $user->update($request->all());
         return redirect('/admin/users')->with('success', 'User Updated  Successfully!');
     }

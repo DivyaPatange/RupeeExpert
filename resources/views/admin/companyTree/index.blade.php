@@ -35,8 +35,9 @@
                             <span class="tf-nc">
                                 <i class="ni ni-atom" style="font-size:25px;"></i>
                                 <br>
-                                Rupee Expert
+                                Aakash Nimje
                                 <br>
+                                AKHG1024
                             </span>
                             <ul> 
                                 @foreach($users as $user)
@@ -50,7 +51,7 @@
 
                                         {{ $user->name }}
                                         <br>
-                                        {{ $user->client_id }}
+                                        {{ $user->reference_client_id }}
                                     </span>
                                     @if(count($user->childs))
                                         @include('admin.companyTree.manageChild',['childs' => $user->childs])

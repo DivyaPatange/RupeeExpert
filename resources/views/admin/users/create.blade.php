@@ -125,11 +125,44 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
+                            <label for="state">State</label>
+                            <input type="text" class="form-control @error('state') is-invalid @enderror" id="state" placeholder="Enter State" name="state" value="{{ old('state') }}">
+                            @error('state')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
                             <label for="address">Address</label>
                             <textarea class="form-control @error('address') is-invalid @enderror" id="address" name="address" rows="4">
                             {{ old('address') }}
 							</textarea>
                             @error('address')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" class="form-control @error('city') is-invalid @enderror" id="city" placeholder="Enter City" name="city" value="{{ old('city') }}">
+                            @error('city')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="pin_code">Pin Code</label>
+                            <input type="number" class="form-control @error('pin_code') is-invalid @enderror" id="pin_code" placeholder="Enter Pin Code" name="pin_code" value="{{ old('pin_code') }}">
+                            @error('pin_code')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

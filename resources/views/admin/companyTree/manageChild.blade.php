@@ -8,7 +8,7 @@
     <br>
         {{ $child->name }}
         <br>
-        {{ $child->client_id }}
+        {{ $child->reference_client_id }}
         </span>
         @if(count($child->childs))
             @include('admin.companyTree.manageChild',['childs' => $child->childs])
