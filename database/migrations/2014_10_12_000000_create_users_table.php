@@ -27,6 +27,9 @@ class CreateUsersTable extends Migration
             $table->string('client_id')->unique();
             $table->string('reference_client_id');
             $table->string('reference_id');
+            $table->string('state');
+            $table->string('city');
+            $table->string('pin_code');
             $table->rememberToken();
             $table->timestamps();
         });

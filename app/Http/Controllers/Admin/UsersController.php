@@ -86,7 +86,14 @@ class UsersController extends Controller
         $users->email = $request->email;
         $users->contact_no = $request->contact_no;
         $users->client_id = $request->client_id;
-        $users->reference_client_id = "AKHG".$request->client_id;
+        // dd($request->client_code);
+        if($request->client_code)
+        {
+            $users->reference_client_id = $request->client_code.''.$request->client_id;
+        }
+        else{
+            $users->reference_client_id = "AKHG".$request->client_id;
+        }
         $users->address = $request->address;
         $users->pan_card_no = $request->pan_card_no;
         $users->bank_acc_no = $request->bank_acc_no;

@@ -1,5 +1,17 @@
 @extends('admin.adminLayout.mainlayout')
 @section('title', 'Users')
+@section('customcss')
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#client_code").click(function(){
+    $("#dvtext").toggle();
+    $("#hidecontent").toggle();
+  });
+});
+</script>
+@endsection
 @section('content')
 @section('page_title', 'Add User')
 <div class="row">
@@ -55,9 +67,14 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="client_id">Client ID</label>
+                            
                             <div class="input-group mb-3">
+
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1">AKHG</span>
+                                    <span class="input-group-text" id="basic-addon1"><input type="radio"  id="client_code"></span>
+                                    <span class="input-group-text" id="basic-addon"><div id="hidecontent">AKHG</div><div id="dvtext"  style="display: none">
+    <input type="text" id="txtBox" name="client_code" />
+</div></span>
                                 </div>
                                 <input type="number" class="form-control @error('client_id') is-invalid @enderror" placeholder="Enter Client ID" aria-label="Enter Client ID" name="client_id" value="{{ old('client_id') }}" aria-describedby="basic-addon1">
                                 @error('client_id')
